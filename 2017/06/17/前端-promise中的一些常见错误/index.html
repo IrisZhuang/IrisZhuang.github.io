@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>promise中的一些常见错误 | 🍄</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="🍄">
+    <meta name="author" content="">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.jpg" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="🍄" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close">
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">主页</a></li>
+            <li><a href="/2017/08/17/近日书单/" class="animsition-link" title="bookList">近日书单</a></li>
+            <li><a href="/2017/04/13/定期总结/" class="animsition-link" title="review">自我回顾</a></li>
+            <li><a href="/2017/05/13/taskAndScore/" class="animsition-link" title="recentTask">近期任务</a></li>
+            <li><a href="/2017/02/13/mark/" class="animsition-link" title="marked">我的草原</a></li>
+            <li><a href="/2017/09/18/周末计划/" class="animsition-link" title="weekend">周末计划</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">文章列表</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+        	<li>
+        		<a class="sb-toggle-submenu">分类<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/前端/" class="animsition-link">前端<small>(19)</small></a></li>
+				    
+				    <li><a href="/categories/年度/" class="animsition-link">年度<small>(7)</small></a></li>
+				    
+				    <li><a href="/categories/旅游/" class="animsition-link">旅游<small>(17)</small></a></li>
+				    
+				    <li><a href="/categories/生活/" class="animsition-link">生活<small>(9)</small></a></li>
+				    
+				    <li><a href="/categories/笔记/" class="animsition-link">笔记<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/算法/" class="animsition-link">算法<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <!-- <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://go.kieran.top/" class="animsition-link">Kieran</a></li>
+                    
+                    <li><a href="http://domain.com/" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li> -->
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                        
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">🍄</a></li>
+                            <li class="nolink"><span>current mood: </span>日落🌄，繁星🌃，冰镇啤酒🍺，⛱️游泳池 🏊.</li>
+                            
+                            <li><a href="https://github.com/IrisZhuang" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li><a href="http://weibo.com/2460421387" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+</div>
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-06-17T06:02:19.000Z" itemprop="datePublished">
+          2017-06-17
+      </time>
+    
+    
+    | 
+    <a href="/tags/node/">node</a>
+    
+    
+</span>
+                <h1>promise中的一些常见错误</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<h4 id="From-we-have-a-problem-with-promises"><a href="#From-we-have-a-problem-with-promises" class="headerlink" title="From we-have-a-problem-with-promises"></a>From <a href="https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html" target="_blank" rel="noopener">we-have-a-problem-with-promises</a></h4><h5 id="初级错误"><a href="#初级错误" class="headerlink" title="初级错误"></a>初级错误</h5><ol>
+<li><p>正确使用composing promises  </p>
+<pre><code>remotedb.allDocs({  
+    include_docs: true,  
+    attachments: true  
+}).then(function (result) {  
+    var docs = result.rows;  
+
+    docs.forEach(function(element) {  
+        localdb.put(element.doc).then(function(response) {  
+        alert(&quot;Pulled doc with id &quot; + element.doc._id + &quot; and added to local db.&quot;);  
+    }).catch(function (err) {   
+        if (err.name == &apos;conflict&apos;) {  
+        localdb.get(element.doc._id).then(function (resp) {  
+        localdb.remove(resp._id, resp._rev).then(function (resp) {  
+     // et cetera...  
+</code></pre></li>
+</ol>
+<pre><code>then 里面调用then,更好的实现方式是composing promises，后一个then会调用前一个返回的结果。
+
+优化方案：  
+
+    remotedb.allDocs(...).then(function (resultOfAllDocs) {  
+        return localdb.put(...);  
+    }).then(function (resultOfPut) {  
+        return localdb.get(...);  
+    }).then(function (resultOfGet) {  
+        return localdb.put(...);  
+    }).catch(function (err) {  
+        console.log(err);  
+    });
+</code></pre><ol start="2">
+<li><p>用promise.all()实现forEach/for/while</p>
+<pre><code>// I want to remove() all docs  
+db.allDocs({include_docs: true}).then(function (result) {  
+result.rows.forEach(function (row) {  
+    db.remove(row.doc);    
+});  
+}).then(function () {  
+// I naively believe all docs have been removed() now!  
+});  
+</code></pre><p> 前一个then并没有返回一个新的promise结果给第二个then,所以第二个then在db.remove()之前就已经执行。</p>
+<p> 解决方案：</p>
+<pre><code>db.allDocs({include_docs: true}).then(function (result) {  
+return Promise.all(result.rows.map(function (row) {  
+    return db.remove(row.doc);  
+}));  
+}).then(function (arrayOfResults) {  
+// All docs have really been removed() now!  
+});  
+</code></pre></li>
+</ol>
+<ol start="3">
+<li><p>没有加 .catch()</p>
+<ul>
+<li><p>.then()的第二个参数和.cathch()的区别？</p>
+<p>then只会捕捉前一个promise里的错误，catch()会捕捉全部promise链上的错误</p>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="4">
+<li><p>使用”deferred”</p>
+<p> jQuery and Angular were using this “deferred” pattern,<br> which has now been replaced with the ES6 Promise spec</p>
+<p> deferred是jQuery和Angular中实现promise的方式，现在已被ES6的Promise代替</p>
+</li>
+<li><p>side effects 代替return<br>(关键问题，Seriously, this is the one weird trick that, once you understand it, will prevent all of the errors I’ve been talking about.)</p>
+</li>
+</ol>
+<ul>
+<li><p><a href="https://www.zhihu.com/question/30779564" target="_blank" rel="noopener">什么是side effects?</a></p>
+<p>  函数一般认为是没有状态的，每次用相同的输入调用时应当给出相同的输出，且不会影响程序的其它部分。如果函数对程序的状态有影响，这种影响就叫作“side effects”。  例如：  </p>
+</li>
+</ul>
+<pre><code>    int counter = 0;
+
+    // with side effect
+    int intCounter() {
+        counter += 1;
+        return counter;
+    }
+
+    // without side effect
+    int intNumber(int m) {
+        return m + 1;
+    }
+
+intCounter改变了外部环境,所以是side effects; intNumber只改变了自身变量，所以without side effect；
+
+    somePromise().then(function () {  
+    someOtherPromise();  
+    }).then(function () {  
+    // Gee, I hope someOtherPromise() has resolved!  
+    // Spoiler alert: it hasn&apos;t.  
+    });  
+
+回到之前的问题，
+eg.    
+
+    somePromise().then(function () {  
+    // I&apos;m inside a then() function!  
+    });  
+
+
+当我们有一个then()的时候，我们可以做这些事：
+
+- 返回一个promise
+- 返回一个异步的value 或者 undefine
+- 返回一个异步的错误
+
+第二个then不会关心前一个then返回的是同步还是异步的结果，但是non-returning的函数将返回undefine，所以很可能当你想返回一些东西的时候，实际上仅仅实现了一个side effects.
+所以，比较好的建议是无论什么时候都在then()中加上return 或者 throw.
+而 throw 是promise的另一个神奇之处，catch可以接收到一个同步的错误，也可接受来自被拒绝的promise的异步错误。例如，JSON.parse(params)中params无效时报的错误将会被catch捕捉。
+</code></pre><h5 id="进阶错误"><a href="#进阶错误" class="headerlink" title="进阶错误"></a>进阶错误</h5><ol>
+<li><p>不知道用promise.resolve()</p>
+<p> 习惯new Promise((resolve,reject)=&gt;{resolve(someSynchronousValue)} ).then()<br> 可以优化为<br> Promise.resolve(someSynchronousValue).then();<br> 好处是一些同步错误可以被捕捉到。<br> 如果希望得到一个Promise对象，比较方便的方法就是直接调用Promise.resolve方法。eg. var p = Promise.resolve();<br> 需要注意的是，立即resolve的Promise对象，是在本轮“事件循环”（event loop）的结束时，而不是在下一轮“事件循环”的开始时,<br> (我的理解是加到执行栈的尾端,关于event-loop可参考node入门中的md)</p>
+</li>
+<li><p>catch 和 then第二个参数的区别</p>
+<p> 见初级问题3，then第二个参数无法捕捉自身throw的error</p>
+</li>
+<li><p>如何用promise实现aysnc的series?</p>
+<pre><code>function executeSequentially(promises) {  
+    var result = Promise.resolve();  
+    promises.forEach(function (promise) {  
+        result = result.then(promise);  
+    });  
+    return result;  
+}
+</code></pre><p> promise array不能达到这个效果，他们还是会并行，因为promise被创建时，他就开始执行了，所以需要这样一个promise工厂，当promise被需要时，才会返回一个promise</p>
+<pre><code>function myPromiseFactory() {  
+    return somethingThatCreatesAPromise();  
+}  
+</code></pre></li>
+<li><p>如何在第三个then中同时获取来自第二个then和第一个then的结果</p>
+<pre><code>let a = Promise.resolve(2).then((result)=&gt;{
+    return test(result).then((result2)=&gt;{console.log(result + &apos;:&apos;+ result2)});
+}).then((result)=&gt;{
+    console.log(&apos;done&apos;)
+})
+
+function test(result){
+    let result2 = result +1;
+    return  Promise.resolve(result2)
+}
+</code></pre></li>
+</ol>
+<ol start="5">
+<li><p>一个问题：</p>
+<pre><code>Promise.resolve(&apos;foo&apos;).then(Promise.resolve(&apos;bar&apos;)).then(function (result) {  
+    console.log(result);  
+});  
+</code></pre><p> 输出foo 还是 bar？</p>
+<p> 答案： foo</p>
+<p> 当在then里传的是非函数时，即使传的是一个Promise对象，也会被处理为then(null)而将result传递到下一个result中，这也解释了第三个问题result.then(promise)为什么不能达到效果，因为这里的promise是非函数对象，只有通过myPromiseFactory将其变为函数，才不会pass through到下一个then</p>
+<pre><code>Promise.resolve(&apos;foo&apos;).then(function () {  
+    return Promise.resolve(&apos;bar&apos;);  
+}).then(function (result) {  
+    console.log(result);  
+});  
+</code></pre><p> 这样才会输出bar</p>
+</li>
+</ol>
+<pre><code>* 我的一些理解 ：then中为non-function和side effects（non-returning）是两种情况
+
+        doSomething().then(  
+            Promise.resolve(resultOfDoSomething)  
+        ).then(finalHandler);  
+
+            VS
+
+        doSomething().then(function () {  
+            doSomethingElse();  
+        }).then(finalHandler);  
+
+
+
+        前者
+        doSomething
+        |-----------------|
+                        Promise对象 = then(null)
+                        |------------------|
+                        finalHandler(resultOfDoSomething)
+                        |------------------|
+        后者  
+        doSomething
+        |-----------------|
+                        doSomethingElse(undefined)
+                        |------------------|
+                        finalHandler(undefined)
+                        |------------------|
+        ）
+</code></pre>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2017/06/17/前端-NodeJS开发指南Note/" style="float: left;">
+        ← Node.js开发指南笔记
+    </a>
+    
+    
+    <a class="pull-right" href="/2017/06/17/前端-stream基础/">
+        stream基础 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+
+
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By . All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/IrisZhuang" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="http://weibo.com/2460421387" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      (function(){
+        console.log('font');
+        var getCss = function(path) {
+          var head = document.getElementsByTagName('head')[0];
+          link = document.createElement('link');
+          link.href = path;
+          link.rel = 'stylesheet';
+          link.type = 'text/css';
+          head.appendChild(link);
+        };
+        getCss('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+        getCss('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+      })();
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

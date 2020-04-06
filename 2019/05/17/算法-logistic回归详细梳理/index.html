@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>logistic回归详细梳理 | 🍄</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="🍄">
+    <meta name="author" content="">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.jpg" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="🍄" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close">
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">主页</a></li>
+            <li><a href="/2017/08/17/近日书单/" class="animsition-link" title="bookList">近日书单</a></li>
+            <li><a href="/2017/04/13/定期总结/" class="animsition-link" title="review">自我回顾</a></li>
+            <li><a href="/2017/05/13/taskAndScore/" class="animsition-link" title="recentTask">近期任务</a></li>
+            <li><a href="/2017/02/13/mark/" class="animsition-link" title="marked">我的草原</a></li>
+            <li><a href="/2017/09/18/周末计划/" class="animsition-link" title="weekend">周末计划</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">文章列表</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+        	<li>
+        		<a class="sb-toggle-submenu">分类<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/前端/" class="animsition-link">前端<small>(19)</small></a></li>
+				    
+				    <li><a href="/categories/年度/" class="animsition-link">年度<small>(7)</small></a></li>
+				    
+				    <li><a href="/categories/旅游/" class="animsition-link">旅游<small>(17)</small></a></li>
+				    
+				    <li><a href="/categories/生活/" class="animsition-link">生活<small>(9)</small></a></li>
+				    
+				    <li><a href="/categories/笔记/" class="animsition-link">笔记<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/算法/" class="animsition-link">算法<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <!-- <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://go.kieran.top/" class="animsition-link">Kieran</a></li>
+                    
+                    <li><a href="http://domain.com/" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li> -->
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                        
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">🍄</a></li>
+                            <li class="nolink"><span>current mood: </span>日落🌄，繁星🌃，冰镇啤酒🍺，⛱️游泳池 🏊.</li>
+                            
+                            <li><a href="https://github.com/IrisZhuang" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li><a href="http://weibo.com/2460421387" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+</div>
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2019-05-17T09:32:53.000Z" itemprop="datePublished">
+          2019-05-17
+      </time>
+    
+</span>
+                <h1>logistic回归详细梳理</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<h4 id="logistic回归"><a href="#logistic回归" class="headerlink" title="logistic回归"></a>logistic回归</h4><blockquote>
+<p>逻辑回归（Logistic Regression）是一种用于解决二分类（0 or 1）问题的机器学习方法</p>
+</blockquote>
+<h5 id="Sigmoid函数"><a href="#Sigmoid函数" class="headerlink" title="Sigmoid函数"></a>Sigmoid函数</h5><p>由于Sigmoid函数的函数性质：作用域是负无穷到正无穷，值域是(0,1)，很适合二分类的场景，式子如下所示：</p>
+<p><img src="https://www.zhihu.com/equation?tex=g%28z%29%3D+%5Cfrac%7B1%7D%7B1%2Be%5E%7B-z%7D%7D" alt="g(z)= \frac{1}{1+e^{-z}}" eeimg="1"></p>
+<p>假设我们预测函数为y = θ * x1 + b</p>
+<p><img src="https://www.zhihu.com/equation?tex=P%28y%3D1%7Cx%3B%5Ctheta%29+%3Dg%28%5Ctheta%5ETx%29%3D+%5Cfrac%7B1%7D%7B1%2Be%5E%7B-%5Ctheta%5ETx%7D%7D" alt="P(y=1|x;\theta) =g(\theta^Tx)= \frac{1}{1+e^{-\theta^Tx}}" eeimg="1"></p>
+<h5 id="决策边界"><a href="#决策边界" class="headerlink" title="决策边界"></a>决策边界</h5><p>决策边界分为线性决策边界和非线性决策边界，如图所示：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-d75eb1a5ac935aafb0adba3ec1073cf8_hd.png" data-rawwidth="939" data-rawheight="516" class="origin_image zh-lightbox-thumb lazy" width="939" data-original="https://pic1.zhimg.com/v2-d75eb1a5ac935aafb0adba3ec1073cf8_r.jpg" data-actualsrc="https://pic1.zhimg.com/v2-d75eb1a5ac935aafb0adba3ec1073cf8_b.png"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-5687064adfc823e35f3eec13f51be97c_hd.png" data-rawwidth="928" data-rawheight="428" class="origin_image zh-lightbox-thumb lazy" width="928" data-original="https://pic1.zhimg.com/v2-5687064adfc823e35f3eec13f51be97c_r.jpg" data-actualsrc="https://pic1.zhimg.com/v2-5687064adfc823e35f3eec13f51be97c_b.png"></p>
+<p>上面两张图很清晰的解释了什么是决策边界，决策边界其实就是一个方程，在逻辑回归中，决策边界由 θ^Tx=0 定义。</p>
+<p>那么，问题： 如何确定Sigmoid函数的决策边界是线性还是非线性的？<br>另y = 1 - y,得到θ^Tx + b = 0, 线性</p>
+<h5 id="似然函数"><a href="#似然函数" class="headerlink" title="似然函数"></a>似然函数</h5><p>我们把Sigmoid函数用联合概率分布函数表达出来，可以写成以下公式：</p>
+<p><span class="mrow" id="MathJax-Span-181"><span class="mi" id="MathJax-Span-182" style="font-family: STIXGeneral-Italic;">P</span><span class="mo" id="MathJax-Span-183" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-184" style="font-family: STIXGeneral-Italic;">y</span><span class="mo" id="MathJax-Span-185" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="mn" id="MathJax-Span-186" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">1</span><span class="texatom" id="MathJax-Span-187"><span class="mrow" id="MathJax-Span-188"><span class="mo" id="MathJax-Span-189" style="font-family: STIXVariants;">|</span></span></span><span class="mi" id="MathJax-Span-190" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-191" style="font-family: STIXGeneral-Regular;">;</span><span class="mi" id="MathJax-Span-192" style="font-family: STIXGeneral-Italic; padding-left: 0.182em;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-193" style="font-family: STIXGeneral-Regular;">)</span><span class="mo" id="MathJax-Span-194" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="msubsup" id="MathJax-Span-195" style="padding-left: 0.301em;"><span style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-196" style="font-family: STIXGeneral-Italic;">h</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.479em;"><span class="texatom" id="MathJax-Span-197"><span class="mrow" id="MathJax-Span-198"><span class="mi" id="MathJax-Span-199" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-200" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-201" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-202" style="font-family: STIXGeneral-Regular;">)</span></span></p>
+<p><span class="mrow" id="MathJax-Span-204"><span class="mi" id="MathJax-Span-205" style="font-family: STIXGeneral-Italic;">P</span><span class="mo" id="MathJax-Span-206" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-207" style="font-family: STIXGeneral-Italic;">y</span><span class="mo" id="MathJax-Span-208" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="mn" id="MathJax-Span-209" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">0</span><span class="texatom" id="MathJax-Span-210"><span class="mrow" id="MathJax-Span-211"><span class="mo" id="MathJax-Span-212" style="font-family: STIXVariants;">|</span></span></span><span class="mi" id="MathJax-Span-213" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-214" style="font-family: STIXGeneral-Regular;">;</span><span class="mi" id="MathJax-Span-215" style="font-family: STIXGeneral-Italic; padding-left: 0.182em;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-216" style="font-family: STIXGeneral-Regular;">)</span><span class="mo" id="MathJax-Span-217" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="mn" id="MathJax-Span-218" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">1</span><span class="mo" id="MathJax-Span-219" style="font-family: STIXGeneral-Regular; padding-left: 0.241em;">−</span><span class="msubsup" id="MathJax-Span-220" style="padding-left: 0.241em;"><span style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-221" style="font-family: STIXGeneral-Italic;">h</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.479em;"><span class="texatom" id="MathJax-Span-222"><span class="mrow" id="MathJax-Span-223"><span class="mi" id="MathJax-Span-224" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-225" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-226" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-227" style="font-family: STIXGeneral-Regular;">)</span></span></p>
+<p><span class="MathJax" id="MathJax-Element-15-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;><mi>P</mi><mo stretchy=&quot;false&quot;>(</mo><mi>y</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>|</mo></mrow><mi>x</mi><mo>;</mo><mi>&amp;#x03B8;</mi><mo stretchy=&quot;false&quot;>)</mo><mo>=</mo><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>(</mo><msub><mi>h</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mi>&amp;#x03B8;</mi></mrow></msub><mo stretchy=&quot;false&quot;>(</mo><mi>x</mi><mo stretchy=&quot;false&quot;>)</mo><msup><mo stretchy=&quot;false&quot;>)</mo><mi>y</mi></msup></mrow><mo>&amp;#x2217;</mo><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>(</mo><mn>1</mn><mo>&amp;#x2212;</mo><msub><mi>h</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mi>&amp;#x03B8;</mi></mrow></msub><mo stretchy=&quot;false&quot;>(</mo><mi>x</mi><mo stretchy=&quot;false&quot;>)</mo><msup><mo stretchy=&quot;false&quot;>)</mo><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mn>1</mn><mo>&amp;#x2212;</mo><mi>y</mi></mrow></msup></mrow></math>" role="presentation" style="text-align: center; position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-228" style="width: 17.324em; display: inline-block;"><span style="display: inline-block; position: relative; width: 14.408em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.491em, 1014.41em, 2.92em, -999.997em); top: -2.557em; left: 0em;"><span class="mrow" id="MathJax-Span-229"><span class="mi" id="MathJax-Span-230" style="font-family: STIXGeneral-Italic;">P</span><span class="mo" id="MathJax-Span-231" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-232" style="font-family: STIXGeneral-Italic;">y</span><span class="texatom" id="MathJax-Span-233"><span class="mrow" id="MathJax-Span-234"><span class="mo" id="MathJax-Span-235" style="font-family: STIXVariants;">|</span></span></span><span class="mi" id="MathJax-Span-236" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-237" style="font-family: STIXGeneral-Regular;">;</span><span class="mi" id="MathJax-Span-238" style="font-family: STIXGeneral-Italic; padding-left: 0.182em;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-239" style="font-family: STIXGeneral-Regular;">)</span><span class="mo" id="MathJax-Span-240" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="texatom" id="MathJax-Span-241" style="padding-left: 0.301em;"><span class="mrow" id="MathJax-Span-242"><span class="mo" id="MathJax-Span-243" style="font-family: STIXGeneral-Regular;">(</span><span class="msubsup" id="MathJax-Span-244"><span style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-245" style="font-family: STIXGeneral-Italic;">h</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.479em;"><span class="texatom" id="MathJax-Span-246"><span class="mrow" id="MathJax-Span-247"><span class="mi" id="MathJax-Span-248" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-249" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-250" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-251" style="font-family: STIXGeneral-Regular;">)</span><span class="msubsup" id="MathJax-Span-252"><span style="display: inline-block; position: relative; width: 0.717em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.3em, 4.348em, -999.997em); top: -3.985em; left: 0em;"><span class="mo" id="MathJax-Span-253" style="font-family: STIXGeneral-Regular;">)</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -4.402em; left: 0.36em;"><span class="mi" id="MathJax-Span-254" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">y</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span></span><span class="mo" id="MathJax-Span-255" style="font-family: STIXGeneral-Regular; padding-left: 0.241em;">∗</span><span class="texatom" id="MathJax-Span-256" style="padding-left: 0.241em;"><span class="mrow" id="MathJax-Span-257"><span class="mo" id="MathJax-Span-258" style="font-family: STIXGeneral-Regular;">(</span><span class="mn" id="MathJax-Span-259" style="font-family: STIXGeneral-Regular;">1</span><span class="mo" id="MathJax-Span-260" style="font-family: STIXGeneral-Regular; padding-left: 0.241em;">−</span><span class="msubsup" id="MathJax-Span-261" style="padding-left: 0.241em;"><span style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-262" style="font-family: STIXGeneral-Italic;">h</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.479em;"><span class="texatom" id="MathJax-Span-263"><span class="mrow" id="MathJax-Span-264"><span class="mi" id="MathJax-Span-265" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-266" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-267" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-268" style="font-family: STIXGeneral-Regular;">)</span><span class="msubsup" id="MathJax-Span-269"><span style="display: inline-block; position: relative; width: 1.551em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.3em, 4.348em, -999.997em); top: -3.985em; left: 0em;"><span class="mo" id="MathJax-Span-270" style="font-family: STIXGeneral-Regular;">)</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -4.402em; left: 0.36em;"><span class="texatom" id="MathJax-Span-271"><span class="mrow" id="MathJax-Span-272"><span class="mn" id="MathJax-Span-273" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">1</span><span class="mo" id="MathJax-Span-274" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">−</span><span class="mi" id="MathJax-Span-275" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">y</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 1.432em;"></span></span></nobr><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"></span></span></p>
+<p>似然函数为；</p>
+<p><span class="mrow" id="MathJax-Span-277"><span class="mi" id="MathJax-Span-278" style="font-family: STIXGeneral-Italic;">L<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-279" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-280" style="font-family: STIXGeneral-Italic;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-281" style="font-family: STIXGeneral-Regular;">)</span><span class="mo" id="MathJax-Span-282" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="munderover" id="MathJax-Span-283" style="padding-left: 0.301em;"><span style="display: inline-block; position: relative; width: 1.372em; height: 0px;"><span style="position: absolute; clip: rect(2.86em, 1001.31em, 4.646em, -999.997em); top: -3.985em; left: 0em;"><span class="mo" id="MathJax-Span-284" style="font-family: STIXSizeOneSym; vertical-align: -0.533em;">∏</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.336em, 1000.96em, 4.289em, -999.997em); top: -2.854em; left: 0.182em;"><span class="texatom" id="MathJax-Span-285"><span class="mrow" id="MathJax-Span-286"><span class="mi" id="MathJax-Span-287" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span class="mo" id="MathJax-Span-288" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">=</span><span class="mn" id="MathJax-Span-289" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">1</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.396em, 1000.48em, 4.17em, -999.997em); top: -5.176em; left: 0.42em;"><span class="texatom" id="MathJax-Span-290"><span class="mrow" id="MathJax-Span-291"><span class="mi" id="MathJax-Span-292" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">m</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mi" id="MathJax-Span-293" style="font-family: STIXGeneral-Italic; padding-left: 0.182em;">P</span><span class="mo" id="MathJax-Span-294" style="font-family: STIXGeneral-Regular;">(</span><span class="msubsup" id="MathJax-Span-295"><span style="display: inline-block; position: relative; width: 1.193em; height: 0px;"><span style="position: absolute; clip: rect(3.396em, 1000.42em, 4.348em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-296" style="font-family: STIXGeneral-Italic;">y</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -4.402em; left: 0.42em;"><span class="texatom" id="MathJax-Span-297"><span class="mrow" id="MathJax-Span-298"><span class="mo" id="MathJax-Span-299" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-300" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span class="mo" id="MathJax-Span-301" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">)</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="texatom" id="MathJax-Span-302"><span class="mrow" id="MathJax-Span-303"><span class="mo" id="MathJax-Span-304" style="font-family: STIXVariants;">|</span></span></span><span class="msubsup" id="MathJax-Span-305"><span style="display: inline-block; position: relative; width: 1.253em; height: 0px;"><span style="position: absolute; clip: rect(3.396em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-306" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -4.402em; left: 0.479em;"><span class="texatom" id="MathJax-Span-307"><span class="mrow" id="MathJax-Span-308"><span class="mo" id="MathJax-Span-309" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-310" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span class="mo" id="MathJax-Span-311" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">)</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-312" style="font-family: STIXGeneral-Regular;">;</span><span class="mi" id="MathJax-Span-313" style="font-family: STIXGeneral-Italic; padding-left: 0.182em;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-314" style="font-family: STIXGeneral-Regular;">)</span></span></p>
+<p>对其通过log取对数简化，得到log似然函数：</p>
+<p><span class="mrow" id="MathJax-Span-492"><span class="mi" id="MathJax-Span-493" style="font-family: STIXGeneral-Italic;">l<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-494" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-495" style="font-family: STIXGeneral-Italic;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-496" style="font-family: STIXGeneral-Regular;">)</span><span class="mo" id="MathJax-Span-497" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="mi" id="MathJax-Span-498" style="font-family: STIXGeneral-Italic; padding-left: 0.301em;">l<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mi" id="MathJax-Span-499" style="font-family: STIXGeneral-Italic;">o</span><span class="mi" id="MathJax-Span-500" style="font-family: STIXGeneral-Italic;">g</span><span class="mo" id="MathJax-Span-501" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-502" style="font-family: STIXGeneral-Italic;">L<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-503" style="font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-504" style="font-family: STIXGeneral-Italic;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-505" style="font-family: STIXGeneral-Regular;">)</span><span class="mo" id="MathJax-Span-506" style="font-family: STIXGeneral-Regular;">)</span><span class="mo" id="MathJax-Span-507" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="munderover" id="MathJax-Span-508" style="padding-left: 0.301em;"><span style="display: inline-block; position: relative; width: 1.313em; height: 0px;"><span style="position: absolute; clip: rect(2.86em, 1001.19em, 4.646em, -999.997em); top: -3.985em; left: 0em;"><span class="mo" id="MathJax-Span-509" style="font-family: STIXSizeOneSym; vertical-align: -0.533em;">∑</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.336em, 1000.96em, 4.289em, -999.997em); top: -2.854em; left: 0.122em;"><span class="texatom" id="MathJax-Span-510"><span class="mrow" id="MathJax-Span-511"><span class="mi" id="MathJax-Span-512" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span class="mo" id="MathJax-Span-513" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">=</span><span class="mn" id="MathJax-Span-514" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">1</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.396em, 1000.48em, 4.17em, -999.997em); top: -5.176em; left: 0.42em;"><span class="texatom" id="MathJax-Span-515"><span class="mrow" id="MathJax-Span-516"><span class="mi" id="MathJax-Span-517" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">m</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="texatom" id="MathJax-Span-518" style="padding-left: 0.182em;"><span class="mrow" id="MathJax-Span-519"><span class="msubsup" id="MathJax-Span-520"><span style="display: inline-block; position: relative; width: 1.193em; height: 0px;"><span style="position: absolute; clip: rect(3.396em, 1000.42em, 4.348em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-521" style="font-family: STIXGeneral-Italic;">y</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -4.402em; left: 0.42em;"><span class="texatom" id="MathJax-Span-522"><span class="mrow" id="MathJax-Span-523"><span class="mo" id="MathJax-Span-524" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-525" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span class="mo" id="MathJax-Span-526" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">)</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span></span><span class="mi" id="MathJax-Span-527" style="font-family: STIXGeneral-Italic;">l<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mi" id="MathJax-Span-528" style="font-family: STIXGeneral-Italic;">o</span><span class="mi" id="MathJax-Span-529" style="font-family: STIXGeneral-Italic;">g</span><span class="texatom" id="MathJax-Span-530"><span class="mrow" id="MathJax-Span-531"><span class="mo" id="MathJax-Span-532" style="font-family: STIXGeneral-Regular;">(</span><span class="msubsup" id="MathJax-Span-533"><span style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-534" style="font-family: STIXGeneral-Italic;">h</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.479em;"><span class="texatom" id="MathJax-Span-535"><span class="mrow" id="MathJax-Span-536"><span class="mi" id="MathJax-Span-537" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-538" style="font-family: STIXGeneral-Regular;">(</span><span class="msubsup" id="MathJax-Span-539"><span style="display: inline-block; position: relative; width: 1.253em; height: 0px;"><span style="position: absolute; clip: rect(3.396em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-540" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -4.402em; left: 0.479em;"><span class="texatom" id="MathJax-Span-541"><span class="mrow" id="MathJax-Span-542"><span class="mo" id="MathJax-Span-543" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-544" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span class="mo" id="MathJax-Span-545" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">)</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-546" style="font-family: STIXGeneral-Regular;">)</span><span class="mo" id="MathJax-Span-547" style="font-family: STIXGeneral-Regular;">)</span></span></span><span class="mo" id="MathJax-Span-548" style="font-family: STIXGeneral-Regular; padding-left: 0.241em;">+</span><span class="mo" id="MathJax-Span-549" style="font-family: STIXGeneral-Regular; padding-left: 0.241em;">(</span><span class="texatom" id="MathJax-Span-550"><span class="mrow" id="MathJax-Span-551"><span class="mn" id="MathJax-Span-552" style="font-family: STIXGeneral-Regular;">1</span><span class="mo" id="MathJax-Span-553" style="font-family: STIXGeneral-Regular; padding-left: 0.241em;">−</span><span class="msubsup" id="MathJax-Span-554" style="padding-left: 0.241em;"><span style="display: inline-block; position: relative; width: 1.193em; height: 0px;"><span style="position: absolute; clip: rect(3.396em, 1000.42em, 4.348em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-555" style="font-family: STIXGeneral-Italic;">y</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -4.402em; left: 0.42em;"><span class="texatom" id="MathJax-Span-556"><span class="mrow" id="MathJax-Span-557"><span class="mo" id="MathJax-Span-558" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-559" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span class="mo" id="MathJax-Span-560" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">)</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span></span><span class="mo" id="MathJax-Span-561" style="font-family: STIXGeneral-Regular;">)</span><span class="mi" id="MathJax-Span-562" style="font-family: STIXGeneral-Italic;">l<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mi" id="MathJax-Span-563" style="font-family: STIXGeneral-Italic;">o</span><span class="mi" id="MathJax-Span-564" style="font-family: STIXGeneral-Italic;">g</span><span class="texatom" id="MathJax-Span-565"><span class="mrow" id="MathJax-Span-566"><span class="mo" id="MathJax-Span-567" style="font-family: STIXGeneral-Regular;">(</span><span class="mn" id="MathJax-Span-568" style="font-family: STIXGeneral-Regular;">1</span><span class="mo" id="MathJax-Span-569" style="font-family: STIXGeneral-Regular; padding-left: 0.241em;">−</span><span class="msubsup" id="MathJax-Span-570" style="padding-left: 0.241em;"><span style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-571" style="font-family: STIXGeneral-Italic;">h</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.479em;"><span class="texatom" id="MathJax-Span-572"><span class="mrow" id="MathJax-Span-573"><span class="mi" id="MathJax-Span-574" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">θ<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-575" style="font-family: STIXGeneral-Regular;">(</span><span class="msubsup" id="MathJax-Span-576"><span style="display: inline-block; position: relative; width: 1.253em; height: 0px;"><span style="position: absolute; clip: rect(3.396em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-577" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -4.402em; left: 0.479em;"><span class="texatom" id="MathJax-Span-578"><span class="mrow" id="MathJax-Span-579"><span class="mo" id="MathJax-Span-580" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">(</span><span class="mi" id="MathJax-Span-581" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span class="mo" id="MathJax-Span-582" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">)</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-583" style="font-family: STIXGeneral-Regular;">)</span><span class="mo" id="MathJax-Span-584" style="font-family: STIXGeneral-Regular;">)</span></span></span></span></p>
+<p><strong>L(θ)求最大值，转化为可以在l(θ)前加个负号，求式子后面的最小值</strong><br>通过求导，梯度下降优化θ<br><img src="https://www.zhihu.com/equation?tex=%5Ctheta_j+%3D+%5Ctheta_j+-+%5Calpha+%28%5Cfrac+%7B%5Cpartial%7D%7B%5Cpartial+%5Ctheta_j%7D%29J%28%5Ctheta%29" alt="\theta_j = \theta_j - \alpha (\frac {\partial}{\partial \theta_j})J(\theta)" eeimg="1"><br><img src="/resources/2019/技术/7.jpg"></p>
+<p>＊如何证明log似然函数是凸函数？<br>有空手写求偏导一下</p>
+<p><img src="/resources/2019/技术/6.png"></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2019/05/20/算法-Mac环境自带Python3-5版本安装Jupyter踩坑指南/" style="float: left;">
+        ← Mac环境自带Python3.5版本安装Jupyter踩坑指南-环境变量的意义
+    </a>
+    
+    
+    <a class="pull-right" href="/2019/05/10/游记-桐庐途中夕阳/">
+        游记-五月-桐庐途遇夕阳 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+
+
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By . All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/IrisZhuang" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="http://weibo.com/2460421387" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      (function(){
+        console.log('font');
+        var getCss = function(path) {
+          var head = document.getElementsByTagName('head')[0];
+          link = document.createElement('link');
+          link.href = path;
+          link.rel = 'stylesheet';
+          link.type = 'text/css';
+          head.appendChild(link);
+        };
+        getCss('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+        getCss('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+      })();
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

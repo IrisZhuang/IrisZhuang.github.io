@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Mac环境自带Python3.5版本安装Jupyter踩坑指南-环境变量的意义 | 🍄</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="🍄">
+    <meta name="author" content="">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.jpg" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="🍄" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close">
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">主页</a></li>
+            <li><a href="/2017/08/17/近日书单/" class="animsition-link" title="bookList">近日书单</a></li>
+            <li><a href="/2017/04/13/定期总结/" class="animsition-link" title="review">自我回顾</a></li>
+            <li><a href="/2017/05/13/taskAndScore/" class="animsition-link" title="recentTask">近期任务</a></li>
+            <li><a href="/2017/02/13/mark/" class="animsition-link" title="marked">我的草原</a></li>
+            <li><a href="/2017/09/18/周末计划/" class="animsition-link" title="weekend">周末计划</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">文章列表</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+        	<li>
+        		<a class="sb-toggle-submenu">分类<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/前端/" class="animsition-link">前端<small>(19)</small></a></li>
+				    
+				    <li><a href="/categories/年度/" class="animsition-link">年度<small>(7)</small></a></li>
+				    
+				    <li><a href="/categories/旅游/" class="animsition-link">旅游<small>(17)</small></a></li>
+				    
+				    <li><a href="/categories/生活/" class="animsition-link">生活<small>(9)</small></a></li>
+				    
+				    <li><a href="/categories/笔记/" class="animsition-link">笔记<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/算法/" class="animsition-link">算法<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <!-- <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://go.kieran.top/" class="animsition-link">Kieran</a></li>
+                    
+                    <li><a href="http://domain.com/" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li> -->
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                        
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">🍄</a></li>
+                            <li class="nolink"><span>current mood: </span>日落🌄，繁星🌃，冰镇啤酒🍺，⛱️游泳池 🏊.</li>
+                            
+                            <li><a href="https://github.com/IrisZhuang" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li><a href="http://weibo.com/2460421387" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+</div>
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2019-05-20T05:42:32.000Z" itemprop="datePublished">
+          2019-05-20
+      </time>
+    
+</span>
+                <h1>Mac环境自带Python3.5版本安装Jupyter踩坑指南-环境变量的意义</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>装Jupyter过程中遇到奇奇怪怪的各种坑，查了无数github issue + stackoverflow，期间无数次内心崩溃，最终终于搞好了，发现遇到的问题中文解决方案很少，于是在这边记录下。</p>
+<p>归根到底，linux没好好学，这边顺便记录下解决问题过程中收获的相关知识点。</p>
+<p>最初问题：</p>
+<p>一切的问题起源于起Jupyter时的报错<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ImportError: cannot <span class="keyword">import</span> name <span class="string">'Type'</span></span><br></pre></td></tr></table></figure></p>
+<p>这个问题百度，基本没有。Google，在一个stackoverflow最尾端的回答看到一个人说了一嘴是python版本为3.5的问题，我一想，诶，我不就是3.5, <a href="https://stackoverflow.com/questions/55274029/jupyter-notebook-from-command-line-importerror-cannot-import-name-type/56159851#56159851" target="_blank" rel="noopener">点进去一看</a>：Python 3.5.1 doesn’t have typing.Type</p>
+<p>先是试了一下pip install –upgrade typing 不行</p>
+<p>脑袋一拍，好的，那就装3.6！于是，这成为了我接下来噩梦的开头…<br>两分钟装好了3.6， 又下了一遍jupyter，看到下在了3.6的site-packages里，然后jupyter一运行，还是和之前一个错。<br>检查python3，确认是3.6了啊，懵逼了一会，又检查了下jupyter –path，发现了原因，jupyter用的还是3.5包里的，一气之下把3.5包里得Jupyter相关文件全部删了，(jupyter:你以为就会乖乖自动找3.6包里的了）天真。。直接报错给我看：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">No <span class="built_in">module</span> named <span class="string">'jupyter'</span></span><br><span class="line">No <span class="built_in">module</span> named <span class="string">'jupyter_core'</span></span><br></pre></td></tr></table></figure></p>
+<p>诶 我3.6里面的包是白下了吗！我能怎么办，我只能怂怂地给他恢复了删除文件。<br>那我又想，干脆卸载干净重装算了，于是思路跳到了如何卸载jupyter这条路上，然后又开心地踩了一回坑<br>先是一堆人说jupyter卸载不了呀，然后有个人跳出来说，可以用autoremove来卸载，我仿佛抓到了希望之光，3s下好了autoremove，提示我装好了，然后我在shell里愉快地敲下autoremove jupyter,<br>提示我 command not found: autoremove 事情果然没有那么简单，但是我会就此作罢吗？我不会，丧心病狂的我作死的输入了 which jupyter 然后跑到jupyter指令在的路径下，把它删除了。</p>
+<p>于是，从现在开始，我再怎么重新下载jupyter，都是command not found: jupyter了(废话)<br>机智的我又灵机一动，把3.6里的jupyter相关文件全部拷过来在系统指令的路径下，按理说这边其实应该就可以了，但是由于一个微小的问题，导致依然报错，让我误以为这条路不通，于是反而慢慢接近了问题的真相。</p>
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>我先直接在文件夹中找到了3.6包中的jupyter notebook， 双击打开，发现能够正常启动一个服务。开始思考问题所在，问题事实上是shell端的jupyter无法选择正确的python版本的问题，说起来，之前下的tensorflow似乎也有这个问题，在python3中import tensorflow没有问题，但是在shell中直接输入tensorflow就会command not found，这似乎是一个<strong>系统环境变量问题</strong></p>
+<h3 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h3><p>带着这个思路Google，看到一个搭建jupyter的回答，建议采用虚拟环境的方式来安装jupyter。</p>
+<blockquote>
+<p>Python 的第三方包成千上万，在一个 Python 环境下开发时间越久、安装依赖越多，就越容易出现依赖包冲突的问题。为了解决这个问题，开发者们开发出了 virtualenv，可以搭建虚拟且独立的 Python 环境。这样就可以使每个项目环境与其他项目独立开来，保持环境的干净，解决包冲突问题。</p>
+</blockquote>
+<h3 id="bash-profile"><a href="#bash-profile" class="headerlink" title=".bash_profile"></a>.bash_profile</h3><p>在尝试的过程中，虽然由于没有特殊配置，引用了全局环境的默认配置，虚拟环境中的jupyter还是指向了3.5，但是在此尝试中我意识到了问题的核心：shell端全局指令的地址指向如何配置？</p>
+<p>结合Google，我回想到了安装Maven时在.bash_profile中配过的环境变量，那时并不理解配置的是什么。这次隐约明白了，尝试在文件下默认路径指向3.6的包，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> PATH=<span class="regexp">/Library/</span>Frameworks/Python.framework/Versions/<span class="number">3.6</span>/bin/:$PATH</span><br></pre></td></tr></table></figure>
+<p>再次删除之前默认全局指令路径下的jupyter相关包，启动：这次果然没有报command not found了，虽然同样报了上次那个微小的问题，但是已经验证了这次的思路是对的，那么解决掉这个小问题应该就可以了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OSError: <span class="string">'/Users/Iris/.jupyter'</span> exists but is not a directory</span><br></pre></td></tr></table></figure>
+<p>试了那么多了，那就再试一次吧。于是不管这个文件之前是谁自动生成的，直接暴力rm重新mkdir，再次启动jupyter notebook，感人的一幕出现了，此处需要大结局截图：</p>
+<p><img src="/resources/2019/技术/4.jpg"></p>
+<p>综上所述，如果我在配置Maven时就去深刻理解一下环境变量这个词，今天的所有坑我都可以绕道而行 (/想锤死自己的微笑脸.jpg)</p>
+<p>然后虽然这次virtualenv没有用成功，但它确实是个好东西，希望之后能够深入了解用起来</p>
+<p>再ps:为了奖励自己从这个萌新问题里蠢蠢的跳了出来，顺便庆祝下520&amp;二哈的一个小成就，晚上愉快的去蟹屋吃自助长肉肉去 （只是给长肉找个冠冕堂皇的借口而已）</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2019/05/21/算法-softmax-loss详细梳理/" style="float: left;">
+        ← softmax loss详细梳理
+    </a>
+    
+    
+    <a class="pull-right" href="/2019/05/17/算法-logistic回归详细梳理/">
+        logistic回归详细梳理 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+
+
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By . All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/IrisZhuang" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                    <li><a href="http://weibo.com/2460421387" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      (function(){
+        console.log('font');
+        var getCss = function(path) {
+          var head = document.getElementsByTagName('head')[0];
+          link = document.createElement('link');
+          link.href = path;
+          link.rel = 'stylesheet';
+          link.type = 'text/css';
+          head.appendChild(link);
+        };
+        getCss('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+        getCss('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+      })();
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
